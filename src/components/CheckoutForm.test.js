@@ -10,7 +10,12 @@ test("renders without errors", () => {
     render(<CheckoutForm/>);
 });
 
-test("shows success message on submit with form details", () => {
+test("shows success message on submit with form details", async () => {
     render(<CheckoutForm/>);
-    
+    const fNameInput = screen.queryByLabelText(/first name:/i)
+    userEvent.type(fNameInput, 'Billy');
+
+    const lNameInput = screen.queryByLabelText(/last name:/i)
+    userEvent.type(lNameInput, 'Paris');
+
 });
