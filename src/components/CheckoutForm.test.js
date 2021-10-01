@@ -12,10 +12,28 @@ test("renders without errors", () => {
 
 test("shows success message on submit with form details", async () => {
     render(<CheckoutForm/>);
-    const fNameInput = screen.queryByLabelText(/first name:/i)
+    const fNameInput = screen.getByLabelText(/first name:/i);
     userEvent.type(fNameInput, 'Billy');
 
-    const lNameInput = screen.queryByLabelText(/last name:/i)
+    const lNameInput = screen.getByLabelText(/last name:/i);
     userEvent.type(lNameInput, 'Paris');
+
+    const addressInput = screen.getByLabelText(/address:/i);
+    userEvent.type(addressInput, 'the middle of nowhere 456');
+
+    const cityInput = screen.getByLabelText(/city:/i);
+    userEvent.type(cityInput, 'nowhere');
+
+    const stateInput = screen.getByLabelText(/state:/i)
+    userEvent.type(stateInput, 'Kansas');
+
+    const zipInput = screen.getByLabelText(/zip:/i)
+    userEvent.type(zipInput, '1111111');
+
+    const button = screen.getByRole('button');
+    userEvent.click(button);
+
+    const messageFeedback = await screen.findByTestId('successMessage');
+    expect(messageFeedback).toBeInTheDocument();
 
 });
